@@ -14,7 +14,7 @@ class Caracteristicas{
     }
 
     set vida(novaVida){
-        this.vida = novaVida < 0 ? 0 : novaVida;
+        this._vida = novaVida < 0 ? 0 : novaVida;
     }
 }
 
@@ -57,5 +57,25 @@ class MonstroGrande extends Caracteristicas{
         this.vidaMax = this.life;
         this.ataque = 8;
         this.defesa = 8;
+    }
+}
+
+class Cenario{
+    constructor(lutador1, lutador2, elLutador1, elLutador2){
+        this.lutador1 = lutador1;
+        this.lutador2 = lutador2;
+        this.elLutador1 = elLutador1;
+        this.elLutador2 = elLutador2;
+
+        //  as propriedades sem o El no final são as classes que você criou antes, e as com El no final são os elementos no HTML.
+    }
+
+    inicio(){
+        this.update();
+    }
+
+    update(){
+        this.elLutador1.querySelector('.nome').innerHTML = this.lutador1.nome;
+        this.elLutador2.querySelector('.nome').innerHTML = this.lutador2.nome;
     }
 }
