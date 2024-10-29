@@ -44,7 +44,7 @@ class MonstroPequeno extends Caracteristicas{
     constructor(){
         super('Monstro Pequeno');
         this.vida = 50;
-        this.vidaMax = this.life;
+        this.vidaMax = this.vida;
         this.ataque = 3;
         this.defesa = 1;
     }
@@ -76,6 +76,11 @@ class Cenario{
 
     update(){
         this.elLutador1.querySelector('.nome').innerHTML = this.lutador1.nome;
+        let lutador1Pct = (this.lutador1.vida / this.lutador1.vidaMax) * 100;
+        this.elLutador1.querySelector('.barra').style.width = `${lutador1Pct}%`;
+
         this.elLutador2.querySelector('.nome').innerHTML = this.lutador2.nome;
+        let lutador2Pct = (this.lutador2.vida / this.lutador2.vidaMax) * 100;
+        this.elLutador2.querySelector('.barra').style.width = `${lutador2Pct}%`;
     }
 }
