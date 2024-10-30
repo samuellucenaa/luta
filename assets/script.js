@@ -1,4 +1,4 @@
-let jogador = new Mago('Samuel');
+let jogador = new Guerreiro('Samuel');
 let npc = new MonstroGrande();
 
 let cenario = new Cenario(

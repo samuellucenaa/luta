@@ -22,6 +22,7 @@ class Guerreiro extends Caracteristicas{
     constructor(nome){
         super(nome);
         this.vida = 100;
+        this.vidaMax = this.vida;
         this.ataque = 10;
         this.defesa = 8;
     }
@@ -31,6 +32,7 @@ class Mago extends Caracteristicas{
     constructor(nome){
         super(nome);
         this.vida = 80;
+        this.vidaMax = this.vida;
         this.ataque = 15;
         this.defesa = 3;
     }
@@ -74,18 +76,23 @@ class Cenario{
     }
 
     update(){
-        this.elLutador1.querySelector('.nome').innerHTML = `${this.lutador1.nome} - ${this.lutador1.vida} HP`;
-        this.elLutador2.querySelector('.nome').innerHTML = `${this.lutador2.nome} - ${this.lutador2.vida} HP`;
+        const lutador1Pct = (this.lutador1.vida / this.lutador1.vidaMax) * 100;
+        this.elLutador1.querySelector('.barra').style.width = `${lutador1Pct}%`;
+        this.elLutador1.querySelector('.nome').innerHTML = `${this.lutador1.nome} - ${this.lutador1.vida.toFixed(0)} HP`;
+        
+        const lutador2Pct = (this.lutador2.vida / this.lutador2.vidaMax) * 100;
+        this.elLutador2.querySelector('.barra').style.width = `${lutador2Pct}%`;
+        this.elLutador2.querySelector('.nome').innerHTML = `${this.lutador2.nome} - ${this.lutador2.vida.toFixed(0)} HP`;
     }
 
     ataque(atacando, atacado){
         if(atacando.vida <= 0 || atacado.vida <= 0){
-            console.log('Atacando morto');
+            console.log('Um dos jogadores está morto');
             return;
         }
 
-        let fatorAtaque = (Math.random() * 2).toFixed(2);
-        let fatorDefesa = (Math.random() * 2).toFixed(2);
+        let fatorAtaque = parseFloat(Math.random() * 2).toFixed(2);
+        let fatorDefesa = parseFloat(Math.random() * 2).toFixed(2);
 
         let ataqueAtual = atacando.ataque * fatorAtaque;
         let defesaAtual = atacado.defesa * fatorDefesa;
