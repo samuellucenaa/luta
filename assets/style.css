@@ -9,23 +9,20 @@
 }
 
 .barra-de-vida{
-    width:20%;
     height: 10px;
     border: 1px solid #000;
     border-radius: 5px;
 }
 
-.barra{
+.barra-de-vida .barra{
+    width: 10%;
     height: inherit;
-    width: 20px;
     background-color: #F00;
     border-radius: 5px;
 }
 
 .log{
     border: 1px dashed black;
-    width: 25%;
     height: 200px;
     overflow-y: scroll;
-    margin-top: 50px;
 }
