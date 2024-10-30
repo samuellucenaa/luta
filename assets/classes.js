@@ -19,24 +19,20 @@ class Caracteristicas{
 }
 
 class Guerreiro extends Caracteristicas{
-    
-    vida = 100;
-    ataque = 10;
-    defesa = 8;
-
     constructor(nome){
         super(nome);
+        this.vida = 100;
+        this.ataque = 10;
+        this.defesa = 8;
     }
 }
 
 class Mago extends Caracteristicas{
-    
-    vida = 80;
-    ataque = 15;
-    defesa = 3;
-    
     constructor(nome){
         super(nome);
+        this.vida = 80;
+        this.ataque = 15;
+        this.defesa = 3;
     }
 }
 
@@ -70,17 +66,37 @@ class Cenario{
         //  as propriedades sem o El no final são as classes que você criou antes, e as com El no final são os elementos no HTML.
     }
 
-    inicio(){
+    start(){
         this.update();
+
+        this.elLutador1.querySelector('.botao-atacar').addEventListener('click', () => this.ataque(this.lutador1, this.lutador2));
+        this.elLutador2.querySelector('.botao-atacar').addEventListener('click', () => this.ataque(this.lutador2, this.lutador1));
     }
 
     update(){
-        this.elLutador1.querySelector('.nome').innerHTML = this.lutador1.nome;
-        let lutador1Pct = (this.lutador1._vida / this.lutador1.vidaMax) * 100;
-        this.elLutador1.querySelector('.barra').style.width = `${lutador1Pct}%`;
+        this.elLutador1.querySelector('.nome').innerHTML = `${this.lutador1.nome} - ${this.lutador1.vida} HP`;
+        this.elLutador2.querySelector('.nome').innerHTML = `${this.lutador2.nome} - ${this.lutador2.vida} HP`;
+    }
 
-        this.elLutador2.querySelector('.nome').innerHTML = this.lutador2.nome;
-        let lutador2Pct = (this.lutador2._vida / this.lutador2.vidaMax) * 100;
-        this.elLutador2.querySelector('.barra').style.width = `${lutador2Pct}%`;
+    ataque(atacando, atacado){
+        if(atacando.vida <= 0 || atacado.vida <= 0){
+            console.log('Atacando morto');
+            return;
+        }
+
+        let fatorAtaque = (Math.random() * 2).toFixed(2);
+        let fatorDefesa = (Math.random() * 2).toFixed(2);
+
+        let ataqueAtual = atacando.ataque * fatorAtaque;
+        let defesaAtual = atacado.defesa * fatorDefesa;
+
+        if(ataqueAtual > defesaAtual){
+            atacado.vida -= ataqueAtual;
+            console.log(`${atacando.nome} causou ${ataqueAtual.toFixed(2)} de dano!`)
+        } else{
+            console.log(`${atacado.nome} conseguiu defender!`)
+        }
+
+        this.update();
     }
 }

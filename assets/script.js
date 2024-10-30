@@ -8,4 +8,4 @@ let cenario = new Cenario(
     document.querySelector('.area-npc')
 );
 
-cenario.inicio();
+cenario.start();
