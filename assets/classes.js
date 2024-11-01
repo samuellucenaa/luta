@@ -59,11 +59,12 @@ class MonstroGrande extends Caracteristicas{
 }
 
 class Cenario{
-    constructor(lutador1, lutador2, elLutador1, elLutador2){
+    constructor(lutador1, lutador2, elLutador1, elLutador2, objetoLog){
         this.lutador1 = lutador1;
         this.lutador2 = lutador2;
         this.elLutador1 = elLutador1;
         this.elLutador2 = elLutador2;
+        this.log = objetoLog;
 
         //  as propriedades sem o El no final são as classes que você criou antes, e as com El no final são os elementos no HTML.
     }
@@ -87,7 +88,7 @@ class Cenario{
 
     ataque(atacando, atacado){
         if(atacando.vida <= 0 || atacado.vida <= 0){
-            console.log('Um dos jogadores está morto');
+            this.log.addMensagem('Um dos jogadores está morto');
             return;
         }
 
@@ -99,11 +100,31 @@ class Cenario{
 
         if(ataqueAtual > defesaAtual){
             atacado.vida -= ataqueAtual;
-            console.log(`${atacando.nome} causou ${ataqueAtual.toFixed(2)} de dano!`)
+            this.log.addMensagem(`${atacando.nome} causou ${ataqueAtual.toFixed(2)} de dano!`)
         } else{
-            console.log(`${atacado.nome} conseguiu defender!`)
+            this.log.addMensagem(`${atacado.nome} conseguiu defender!`)
         }
 
         this.update();
+    }
+}
+
+class Log{
+    lista = [];
+    constructor(elLista){
+        this.elLista = elLista;
+    }
+
+    addMensagem(msg){
+        this.lista.push(msg);
+        this.render();
+    }
+
+    render(){
+        this.elLista.innerHTML = '';
+
+        for(let i in this.lista){
+            this.elLista.innerHTML += `<li>${this.lista[i]}</li>`;
+        }
     }
 }
