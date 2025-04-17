@@ -43,7 +43,7 @@ class MonstroPequeno extends Caracteristicas{
         super('Monstro Pequeno');
         this.vida = 50;
         this.vidaMax = this.vida;
-        this.ataque = 3;
+        this.ataque = 5;
         this.defesa = 1;
     }
 }
